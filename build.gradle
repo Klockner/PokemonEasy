@@ -6,11 +6,11 @@ apply plugin: 'java'
 sourceCompatibility = 1.5
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile files("lib/PokeGOAPI-library-all-0.3.0.jar")
+    compile 'com.pokegoapi:PokeGOAPI-library:0.4.0'
 }
 
