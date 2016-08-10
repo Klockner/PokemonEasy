@@ -38,7 +38,7 @@ public class PokemonLogin {
         refreshToken = provider.getRefreshToken();
 
         System.out.println("################## TOKEN - (copy and paste inside SecretToken class) ######################");
-        System.err.println(refreshToken);
+        System.out.println(refreshToken);
         System.out.println("###########################################################################################");
 
         PokemonGo go = new PokemonGo(new GoogleUserCredentialProvider(httpClient, refreshToken), httpClient);

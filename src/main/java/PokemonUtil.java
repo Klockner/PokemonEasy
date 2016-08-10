@@ -34,12 +34,28 @@ public class PokemonUtil {
 
         for (Pokemon poke : pokeList)
         {
-            System.out.println(poke.getPokemonId().name() + " - IV: " + poke.getIvRatio() + " - CP: " + poke.getCp());
+            System.out.println("ID: " + poke.getPokemonId().getNumber() + " - " + poke.getPokemonId().name() + " - IV: " + poke.getIvRatio() + " - CP: " + poke.getCp());
         }
         System.out.println("Total: " + pokeList.size());
     }
 
-    public void transferPokemons() {
-//        go.getInventories();
+    //Transfer pokemon filtered by name, CP && IV
+    public void transferPokemonsFilterCpAndIv(int cpAmount, double ivAmount) throws LoginFailedException, RemoteServerException {
+        for (Pokemon poke : go.getInventories().getPokebank().getPokemons()) {
+            if (poke.getCp() < cpAmount && poke.getIvRatio() < ivAmount) {
+                poke.transferPokemon();
+            }
+        }
+    }
+
+    //Transfer pokemon filtered by name, CP && IV
+    public void transferPokemonFilterNameCpAndIv(String pokeName, int cpAmount, double ivAmount) throws LoginFailedException, RemoteServerException {
+        for (Pokemon poke : go.getInventories().getPokebank().getPokemons()) {
+            if (poke.getPokemonId().name().equalsIgnoreCase(pokeName)) {
+                if (poke.getCp() < cpAmount && poke.getIvRatio() < ivAmount) {
+                    poke.transferPokemon();
+                }
+            }
+        }
     }
 }
