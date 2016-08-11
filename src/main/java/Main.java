@@ -19,7 +19,7 @@ public class Main {
 
             PokemonUtil pokeUtil = new PokemonUtil(go);
 
-//            pokeUtil.listAllPokemons();
+            pokeUtil.listAllPokemons();
 
             //Nome do pokemon para transferir, abaixo de CP, abaixo de IV
             // MAGIKARP CP < 100 e IV < 0.8
