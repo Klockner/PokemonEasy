@@ -3,9 +3,7 @@ import com.pokegoapi.api.pokemon.Pokemon;
 import com.pokegoapi.exceptions.LoginFailedException;
 import com.pokegoapi.exceptions.RemoteServerException;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by klockner on 09/08/16.
@@ -17,9 +15,7 @@ public class PokemonUtil {
         this.go = go;
     }
 
-    public void listAllPokemons() throws LoginFailedException, RemoteServerException {
-        List<Pokemon> pokeList = go.getInventories().getPokebank().getPokemons();
-
+    public void orderDescIvRatio(List<Pokemon> pokeList) {
         Collections.sort(pokeList, new Comparator<Pokemon>() {
             public int compare(Pokemon pokemon, Pokemon t1) {
                 if (pokemon.getIvRatio() < t1.getIvRatio()) {
@@ -31,6 +27,12 @@ public class PokemonUtil {
                 }
             }
         });
+    }
+
+    public void listAllPokemons() throws LoginFailedException, RemoteServerException {
+        List<Pokemon> pokeList = go.getInventories().getPokebank().getPokemons();
+
+        orderDescIvRatio(pokeList);
 
         for (Pokemon poke : pokeList)
         {
@@ -57,5 +59,28 @@ public class PokemonUtil {
                 }
             }
         }
+    }
+
+    public void removePokemonSpecieByIvMoreThan(int pokemonSpecieQuantitie) throws LoginFailedException, RemoteServerException {
+        List<Pokemon> pokeList = go.getInventories().getPokebank().getPokemons();
+        orderDescIvRatio(pokeList);
+        int contador = 0;
+
+        Map<String, List<Pokemon>> bestPokemons = new HashMap<String, List<Pokemon>>();
+
+        for(Pokemon poke : pokeList) {
+            if (bestPokemons.get(poke.getPokemonId().name()) == null) {
+                bestPokemons.put(poke.getPokemonId().name(), new ArrayList<Pokemon>());
+            }
+
+            if (bestPokemons.get(poke.getPokemonId().name()).size() < pokemonSpecieQuantitie) {
+                bestPokemons.get(poke.getPokemonId().name()).add(poke);
+            } else {
+                poke.transferPokemon();
+                contador++;
+                System.out.println("Transferindo: " + poke.getPokemonId() + "IV: " + poke.getIvRatio() + " - CP: " + poke.getCp());
+            }
+        }
+        System.out.println("Pokemons transferidos: " + contador);
     }
 }

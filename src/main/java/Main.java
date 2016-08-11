@@ -18,14 +18,17 @@ public class Main {
             Thread.sleep(3000);
 
             PokemonUtil pokeUtil = new PokemonUtil(go);
-            pokeUtil.listAllPokemons();
+
+//            pokeUtil.listAllPokemons();
 
             //Nome do pokemon para transferir, abaixo de CP, abaixo de IV
             // MAGIKARP CP < 100 e IV < 0.8
             // Pega todos os magikarps com CP menor que 100 e IV menor que 0.8 ao mesmo tempo.
-            pokeUtil.transferPokemonFilterNameCpAndIv("MAGIKARP", 100, 0.8 );
+//            pokeUtil.transferPokemonFilterNameCpAndIv("MAGIKARP", 100, 0.8 );
 
-            pokeUtil.listAllPokemons();
+            //Transfere pokemons baseado no IV, mantem os 2 melhores de cada tipo
+//            pokeUtil.removePokemonSpecieByIvMoreThan(2);
+
 
         } catch (RemoteServerException e) {
             System.out.println("Server error");
