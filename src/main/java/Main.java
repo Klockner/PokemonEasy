@@ -12,9 +12,9 @@ public class Main {
     public static void main(String[] args) {
         try {
             PokemonLogin pokeLogin = new PokemonLogin();
-//            PokemonGo go = pokeLogin.loginWithGoogle();
-            //Comentar linha de baixo e descomentar a de cima para o first login
-            PokemonGo go = pokeLogin.loginWithToken(SecretToken.getGoogleToken());
+            PokemonGo go = pokeLogin.loginWithGoogle();
+//            Comentar linha de baixo e descomentar a de cima para o first login
+//            PokemonGo go = pokeLogin.loginWithToken(SecretToken.getGoogleToken());
             Thread.sleep(3000);
 
             PokemonUtil pokeUtil = new PokemonUtil(go);
@@ -28,6 +28,9 @@ public class Main {
 
             //Transfere pokemons baseado no IV, mantem os 2 melhores de cada tipo
 //            pokeUtil.removePokemonSpecieByIvMoreThan(2);
+
+            //Favoritar poke com IV > 0.9
+//            pokeUtil.makeFavorite(0.9);
 
 
         } catch (RemoteServerException e) {

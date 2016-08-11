@@ -74,7 +74,7 @@ public class PokemonUtil {
 
         Map<String, List<Pokemon>> bestPokemons = new HashMap<String, List<Pokemon>>();
 
-        for(Pokemon poke : pokeList) {
+        for (Pokemon poke : pokeList) {
             if (bestPokemons.get(poke.getPokemonId().name()) == null) {
                 bestPokemons.put(poke.getPokemonId().name(), new ArrayList<Pokemon>());
             }
@@ -88,5 +88,13 @@ public class PokemonUtil {
             }
         }
         System.out.println("Pokemons transferidos: " + total);
+    }
+
+    public void makeFavorite(double ivAmount) throws LoginFailedException, RemoteServerException {
+        for (Pokemon poke : go.getInventories().getPokebank().getPokemons()) {
+            if (poke.getIvRatio() > ivAmount) {
+                poke.setFavoritePokemon(true);
+            }
+        }
     }
 }
