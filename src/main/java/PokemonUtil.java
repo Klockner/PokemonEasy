@@ -3,6 +3,7 @@ import com.pokegoapi.api.pokemon.Pokemon;
 import com.pokegoapi.exceptions.LoginFailedException;
 import com.pokegoapi.exceptions.RemoteServerException;
 
+import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -31,12 +32,16 @@ public class PokemonUtil {
 
     public void listAllPokemons() throws LoginFailedException, RemoteServerException {
         List<Pokemon> pokeList = go.getInventories().getPokebank().getPokemons();
-
         orderDescIvRatio(pokeList);
+
+        double ivRatio;
 
         for (Pokemon poke : pokeList)
         {
-            System.out.println("ID: " + poke.getPokemonId().getNumber() + " - " + poke.getPokemonId().name() + " - IV: " + poke.getIvRatio() + " - CP: " + poke.getCp());
+            ivRatio = poke.getIvRatio();
+            ivRatio = Double.valueOf(String.format(Locale.US, "%.2f", ivRatio));
+            System.out.println(poke.getPokemonId().name() + " - IV: " + ivRatio + " - CP: " + poke.getCp() +
+                     " - [M1: " + poke.getMove1() +  " M2: " + poke.getMove2() + "] - FAVORITE: " + poke.isFavorite());
         }
         System.out.println("Total: " + pokeList.size());
     }
@@ -61,10 +66,11 @@ public class PokemonUtil {
         }
     }
 
+    //Keep a number of each pokemon type, and transfer all others.
     public void removePokemonSpecieByIvMoreThan(int pokemonSpecieQuantitie) throws LoginFailedException, RemoteServerException {
         List<Pokemon> pokeList = go.getInventories().getPokebank().getPokemons();
         orderDescIvRatio(pokeList);
-        int contador = 0;
+        int total = 0;
 
         Map<String, List<Pokemon>> bestPokemons = new HashMap<String, List<Pokemon>>();
 
@@ -77,10 +83,10 @@ public class PokemonUtil {
                 bestPokemons.get(poke.getPokemonId().name()).add(poke);
             } else {
                 poke.transferPokemon();
-                contador++;
+                total++;
                 System.out.println("Transferindo: " + poke.getPokemonId() + "IV: " + poke.getIvRatio() + " - CP: " + poke.getCp());
             }
         }
-        System.out.println("Pokemons transferidos: " + contador);
+        System.out.println("Pokemons transferidos: " + total);
     }
 }
