@@ -84,7 +84,7 @@ public class PokemonUtil {
             } else {
                 poke.transferPokemon();
                 total++;
-                System.out.println("Transferindo: " + poke.getPokemonId() + "IV: " + poke.getIvRatio() + " - CP: " + poke.getCp());
+                System.out.println("Transferindo: " + poke.getPokemonId() + " - IV: " + poke.getIvRatio() + " - CP: " + poke.getCp());
             }
         }
         System.out.println("Pokemons transferidos: " + total);
